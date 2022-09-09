@@ -12,7 +12,9 @@ specifiers:
   '@angular/platform-browser': ^14.0.0
   '@angular/platform-browser-dynamic': ^14.0.0
   '@angular/router': ^14.0.0
+  '@popperjs/core': 2.11.6
   '@types/jasmine': ~4.0.0
+  bootstrap: 5.2.1
   jasmine-core: ~4.3.0
   karma: ~6.4.0
   karma-chrome-launcher: ~3.1.0
@@ -33,6 +35,8 @@ dependencies:
   '@angular/platform-browser': 14.2.1_fqzhziugyvj3fng5w37amzoy3y
   '@angular/platform-browser-dynamic': 14.2.1_rckh2xyz42xz63btwlazezeg5y
   '@angular/router': 14.2.1_nkboozztpybu6c6qwc6xmeddj4
+  '@popperjs/core': 2.11.6
+  bootstrap: 5.2.1_@popperjs+core@2.11.6
   rxjs: 7.5.6
   tslib: 2.4.0
   zone.js: 0.11.8
@@ -1943,6 +1947,10 @@ packages:
       - supports-color
     dev: true
 
+  /@popperjs/core/2.11.6:
+    resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
+    dev: false
+
   /@schematics/angular/14.2.2:
     resolution: {integrity: sha512-ExejSuQrkhVzcvq1MH1hSHufp2HUrrCSb0ol1JVlekIkq6H3A5839/8mDC6U/stRMo/gNz01sibBBJmQwH2h6Q==}
     engines: {node: ^14.15.0 || >=16.10.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
@@ -2548,6 +2556,14 @@ packages:
   /boolbase/1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
     dev: true
+
+  /bootstrap/5.2.1_@popperjs+core@2.11.6:
+    resolution: {integrity: sha512-UQi3v2NpVPEi1n35dmRRzBJFlgvWHYwyem6yHhuT6afYF+sziEt46McRbT//kVXZ7b1YUYEVGdXEH74Nx3xzGA==}
+    peerDependencies:
+      '@popperjs/core': ^2.11.6
+    dependencies:
+      '@popperjs/core': 2.11.6
+    dev: false
 
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
