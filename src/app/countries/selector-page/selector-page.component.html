@@ -1,1 +1,26 @@
-<h2>Selectors</h2>
+<h2 class="mt-5">Selectores anidados</h2>
+<hr />
+<form autocomplete="off" [formGroup]="countriesForm" (ngSubmit)="onSubmit()">
+  <!-- Continent -->
+  <div class="row mb-3">
+    <div class="col">
+      <label for="continent" class="form-label">Continente</label>
+      <select class="form-control" formControlName="continent">
+        <option value="">-- Seleccione Continente --</option>
+        <option value="1">America</option>
+      </select>
+    </div>
+  </div>
+  <!-- Submit -->
+  <div class="row">
+    <div class="col">
+      <button type="submit" class="btn btn-primary float-end">
+        Seleccionar
+      </button>
+    </div>
+  </div>
+</form>
+<br />
+<h3>countriesForm Model</h3>
+<pre>Valid: {{ countriesForm.valid }}</pre>
+<pre>Value: {{ countriesForm.value | json }}</pre>
