@@ -5,7 +5,7 @@
   <div class="row mb-3">
     <div class="col">
       <label for="continent" class="form-label">Continente</label>
-      <select class="form-control" formControlName="continent">
+      <select class="form-control" formControlName="region">
         <option value="">-- Seleccione Continente --</option>
         <option *ngFor="let region of regions" [value]="region | lowercase">
           {{ region }}
@@ -13,6 +13,20 @@
       </select>
     </div>
   </div>
+
+  <!-- Countries -->
+  <div class="row mb-3">
+    <div class="col">
+      <label for="country" class="form-label">País</label>
+      <select class="form-control" formControlName="country">
+        <option value="">-- Seleccione País --</option>
+        <option *ngFor="let country of countries" [value]="country.cca3">
+          {{ country.name.official }}
+        </option>
+      </select>
+    </div>
+  </div>
+
   <!-- Submit -->
   <div class="row">
     <div class="col">
