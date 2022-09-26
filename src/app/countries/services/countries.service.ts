@@ -19,37 +19,18 @@ export class CountriesService {
   }
 
   getCountriesByRegion(region: string): Observable<CountrySmall[]> {
-    const url = this._restCountriesURL;
-    return this.http.get<CountrySmall[]>(
-      `${url}/region/${region}?fields=name,cca3`
-    );
-  }
-
-  getCountryByCode(countryCode: string): Observable<Country | null> {
-    // When reseting form control it can be: ''
-    if (!countryCode) return of(null);
-
-    const url = this._restCountriesURL;
-    return (
-      this.http
-        .get<Country[]>(`${url}/alpha/${countryCode}`)
-        // Request return an array with the country
-        .pipe(map((arrayWithCountry) => arrayWithCountry[0]))
-    );
-  }
-
-  getCountrySmallByCode(countryCode: string): Observable<CountrySmall> {
-    const url = this._restCountriesURL;
-    return this.http.get<CountrySmall>(
-      `${url}/alpha/${countryCode}?fields=name,cca3` // With query params returns just the object
-    );
+    return this.getCountriesSmall(`/region/${region}?fields=name,cca3,borders`);
   }
 
   getCountriesByBorderCodes(borderCodes: string[]): Observable<CountrySmall[]> {
     if (!borderCodes || borderCodes.length === 0) return of([]);
-    const url = this._restCountriesURL;
-    return this.http.get<CountrySmall[]>(
-      `${url}/alpha?codes=${borderCodes}?fields=name,cca3`
+    return this.getCountriesSmall(
+      `/alpha?codes=${borderCodes}&fields=name,cca3`
     );
+  }
+
+  private getCountriesSmall(endpoint: string): Observable<CountrySmall[]> {
+    const url = this._restCountriesURL;
+    return this.http.get<CountrySmall[]>(`${url}${endpoint}`);
   }
 }
