@@ -13,6 +13,9 @@ export class SelectorPageComponent implements OnInit {
   countries: CountrySmall[] = [];
   countriesInBorder: string[] = [];
 
+  // UI
+  loading: boolean = false;
+
   countriesForm: FormGroup = this.fb.group({
     region: ['', Validators.required],
     country: ['', Validators.required],
@@ -31,19 +34,29 @@ export class SelectorPageComponent implements OnInit {
     this.countriesForm
       .get('region')
       ?.valueChanges.pipe(
-        tap((_) => this.countriesForm.get('country')?.reset('')),
+        tap((_) => {
+          this.loading = true;
+          this.countriesForm.get('country')?.reset('');
+        }),
         switchMap((region) =>
           this.countriesService.getCountriesByRegion(region)
         )
       )
-      .subscribe((countries) => (this.countries = countries));
+      .subscribe((countries) => {
+        this.loading = false;
+        this.countries = countries;
+      });
 
     // When country form control changes
     this.countriesForm
       .get('country')
       ?.valueChanges.pipe(
         tap((_) => {
+          this.loading = true;
+
+          // Necessary when region is changed
           this.countriesInBorder = [];
+
           this.countriesForm.get('countriesInBorder')?.reset('');
         }),
         switchMap((countryCode) =>
@@ -51,11 +64,13 @@ export class SelectorPageComponent implements OnInit {
         )
       )
       .subscribe((arrayWithCountry) => {
+        this.loading = false;
+
         // When country form control is reset
         if (!arrayWithCountry.length) return;
 
         const [country] = arrayWithCountry;
-        this.countriesInBorder = country.borders;
+        this.countriesInBorder = country.borders || [];
       });
   }
 
