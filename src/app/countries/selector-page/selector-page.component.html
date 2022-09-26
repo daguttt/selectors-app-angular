@@ -21,7 +21,7 @@
       <select class="form-control" formControlName="country">
         <option value="">-- Seleccione País --</option>
         <option *ngFor="let country of countries" [value]="country.cca3">
-          {{ country.name.official }}
+          {{ country.name.common }}
         </option>
       </select>
     </div>
@@ -30,12 +30,12 @@
   <!-- Borders -->
   <div class="row mb-3">
     <div class="col">
-      <label for="countryBorders" class="form-label">Fronteras</label>
-      <select class="form-control" formControlName="countryBorders">
+      <label for="countriesInBorder" class="form-label">Fronteras</label>
+      <select class="form-control" formControlName="countriesInBorder">
         <option value="">-- Seleccione País Fronterizo --</option>
-        <!-- <option *ngFor="let country of countries" [value]="country.cca3">
-          {{ country.name.official }}
-        </option> -->
+        <option *ngFor="let country of countriesInBorder" [value]="country">
+          {{ country }}
+        </option>
       </select>
     </div>
   </div>

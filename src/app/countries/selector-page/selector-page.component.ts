@@ -11,11 +11,12 @@ import { CountriesService } from '../services/countries.service';
 export class SelectorPageComponent implements OnInit {
   regions: string[] = [];
   countries: CountrySmall[] = [];
+  countriesInBorder: string[] = [];
 
   countriesForm: FormGroup = this.fb.group({
     region: ['', Validators.required],
     country: ['', Validators.required],
-    countryBorders: ['', Validators.required],
+    countriesInBorder: ['', Validators.required],
   });
 
   constructor(
@@ -38,7 +39,24 @@ export class SelectorPageComponent implements OnInit {
       .subscribe((countries) => (this.countries = countries));
 
     // When country form control changes
-    this.countriesForm.get('country')?.valueChanges.subscribe(console.log);
+    this.countriesForm
+      .get('country')
+      ?.valueChanges.pipe(
+        tap((_) => {
+          this.countriesInBorder = [];
+          this.countriesForm.get('countriesInBorder')?.reset('');
+        }),
+        switchMap((countryCode) =>
+          this.countriesService.getCountryByCode(countryCode)
+        )
+      )
+      .subscribe((arrayWithCountry) => {
+        // When country form control is reset
+        if (!arrayWithCountry.length) return;
+
+        const [country] = arrayWithCountry;
+        this.countriesInBorder = country.borders;
+      });
   }
 
   onSubmit(): void {
