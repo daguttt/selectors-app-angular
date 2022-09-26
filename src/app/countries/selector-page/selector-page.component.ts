@@ -63,14 +63,9 @@ export class SelectorPageComponent implements OnInit {
           this.countriesService.getCountryByCode(countryCode)
         )
       )
-      .subscribe((arrayWithCountry) => {
+      .subscribe((country) => {
         this.loading = false;
-
-        // When country form control is reset
-        if (!arrayWithCountry.length) return;
-
-        const [country] = arrayWithCountry;
-        this.countriesInBorder = country.borders || [];
+        this.countriesInBorder = country?.borders || [];
       });
   }
 

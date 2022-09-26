@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, map } from 'rxjs';
 import { Country, CountrySmall } from '../interfaces/countries.interface';
 
 @Injectable({
@@ -25,11 +25,16 @@ export class CountriesService {
     );
   }
 
-  getCountryByCode(code: string): Observable<Country[]> {
+  getCountryByCode(code: string): Observable<Country | null> {
     // When reseting form control it can be ''
-    if (!code) return of([]);
+    if (!code) return of(null);
 
     const url = this._restCountriesURL;
-    return this.http.get<Country[]>(`${url}/alpha/${code}`);
+    return (
+      this.http
+        .get<Country[]>(`${url}/alpha/${code}`)
+        // Request return an array with the country
+        .pipe(map((arrayWithCountry) => arrayWithCountry[0]))
+    );
   }
 }
