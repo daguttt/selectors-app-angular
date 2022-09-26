@@ -47,11 +47,9 @@ export class CountriesService {
 
   getCountriesByBorderCodes(borderCodes: string[]): Observable<CountrySmall[]> {
     if (!borderCodes || borderCodes.length === 0) return of([]);
-
-    const requests: Observable<CountrySmall>[] = borderCodes.map((borderCode) =>
-      this.getCountrySmallByCode(borderCode)
+    const url = this._restCountriesURL;
+    return this.http.get<CountrySmall[]>(
+      `${url}/alpha?codes=${borderCodes}?fields=name,cca3`
     );
-    return forkJoin(requests);
-    // return combineLatest<CountrySmall[]>(requests); // By the course
   }
 }
