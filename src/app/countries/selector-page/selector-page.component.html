@@ -28,13 +28,13 @@
   </div>
 
   <!-- Borders -->
-  <div class="row mb-3" *ngIf="countriesInBorder.length > 0">
+  <div class="row mb-3" *ngIf="borders.length > 0">
     <div class="col">
-      <label for="countriesInBorder" class="form-label">Fronteras</label>
-      <select class="form-control" formControlName="countriesInBorder">
+      <label for="border" class="form-label">Fronteras</label>
+      <select class="form-control" formControlName="border">
         <option value="">-- Seleccione País Fronterizo --</option>
-        <option *ngFor="let country of countriesInBorder" [value]="country">
-          {{ country }}
+        <option *ngFor="let country of borders" [value]="country.cca3">
+          {{ country.name.common }}
         </option>
       </select>
     </div>

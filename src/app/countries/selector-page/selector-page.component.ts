@@ -11,7 +11,7 @@ import { CountriesService } from '../services/countries.service';
 export class SelectorPageComponent implements OnInit {
   regions: string[] = [];
   countries: CountrySmall[] = [];
-  countriesInBorder: string[] = [];
+  borders: CountrySmall[] = [];
 
   // UI
   loading: boolean = false;
@@ -19,7 +19,7 @@ export class SelectorPageComponent implements OnInit {
   countriesForm: FormGroup = this.fb.group({
     region: ['', Validators.required],
     country: ['', Validators.required],
-    countriesInBorder: ['', Validators.required],
+    border: ['', Validators.required],
   });
 
   constructor(
@@ -55,17 +55,20 @@ export class SelectorPageComponent implements OnInit {
           this.loading = true;
 
           // Necessary when region is changed
-          this.countriesInBorder = [];
+          this.borders = [];
 
-          this.countriesForm.get('countriesInBorder')?.reset('');
+          this.countriesForm.get('border')?.reset('');
         }),
         switchMap((countryCode) =>
           this.countriesService.getCountryByCode(countryCode)
+        ),
+        switchMap((country) =>
+          this.countriesService.getCountriesByBorderCodes(country?.borders!)
         )
       )
-      .subscribe((country) => {
+      .subscribe((borders) => {
         this.loading = false;
-        this.countriesInBorder = country?.borders || [];
+        this.borders = borders || [];
       });
   }
 
