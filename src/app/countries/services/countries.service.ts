@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-import { Observable } from 'rxjs';
-import { CountrySmall } from '../interfaces/countries.interface';
+import { Observable, of } from 'rxjs';
+import { Country, CountrySmall } from '../interfaces/countries.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +23,13 @@ export class CountriesService {
     return this.http.get<CountrySmall[]>(
       `${url}/region/${region}?fields=name,cca3`
     );
+  }
+
+  getCountryByCode(code: string): Observable<Country[]> {
+    // When reseting form control it can be ''
+    if (!code) return of([]);
+
+    const url = this._restCountriesURL;
+    return this.http.get<Country[]>(`${url}/alpha/${code}`);
   }
 }

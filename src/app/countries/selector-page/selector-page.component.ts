@@ -15,6 +15,7 @@ export class SelectorPageComponent implements OnInit {
   countriesForm: FormGroup = this.fb.group({
     region: ['', Validators.required],
     country: ['', Validators.required],
+    countryBorders: ['', Validators.required],
   });
 
   constructor(
@@ -25,7 +26,7 @@ export class SelectorPageComponent implements OnInit {
   ngOnInit(): void {
     this.regions = this.countriesService.regions;
 
-    // When region fom control changes
+    // When region form control changes
     this.countriesForm
       .get('region')
       ?.valueChanges.pipe(
@@ -35,6 +36,9 @@ export class SelectorPageComponent implements OnInit {
         )
       )
       .subscribe((countries) => (this.countries = countries));
+
+    // When country form control changes
+    this.countriesForm.get('country')?.valueChanges.subscribe(console.log);
   }
 
   onSubmit(): void {
