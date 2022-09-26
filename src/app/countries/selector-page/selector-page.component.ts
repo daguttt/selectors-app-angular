@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { switchMap, tap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { CountrySmall } from '../interfaces/countries.interface';
 import { CountriesService } from '../services/countries.service';
 
@@ -59,8 +59,8 @@ export class SelectorPageComponent implements OnInit {
 
           this.countriesForm.get('border')?.reset('');
         }),
-        switchMap((countryCode) =>
-          this.countriesService.getCountryByCode(countryCode)
+        map((countryCode) =>
+          this.countries.find((country) => country.cca3 === countryCode)
         ),
         switchMap((country) =>
           this.countriesService.getCountriesByBorderCodes(country?.borders!)

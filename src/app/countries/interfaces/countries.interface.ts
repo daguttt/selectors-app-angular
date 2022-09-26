@@ -1,6 +1,7 @@
 export interface CountrySmall {
   cca3: string;
   name: NameSmall;
+  borders: string[];
 }
 
 export interface NameSmall {
