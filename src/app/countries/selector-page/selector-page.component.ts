@@ -64,11 +64,15 @@ export class SelectorPageComponent implements OnInit {
         ),
         switchMap((country) =>
           this.countriesService.getCountriesByBorderCodes(country?.borders!)
-        )
+        ),
+        tap((borders) => {
+          if (borders.length === 0)
+            this.countriesForm.get('border')?.setValue('no-borders');
+        })
       )
       .subscribe((borders) => {
         this.loading = false;
-        this.borders = borders || [];
+        this.borders = borders;
       });
   }
 
